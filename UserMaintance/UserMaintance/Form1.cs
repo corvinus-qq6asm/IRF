@@ -43,10 +43,12 @@ namespace UserMaintance
         {
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.OverwritePrompt = true;
+            sfd.Filter= "txt files|*.txt";
             if (sfd.ShowDialog()==DialogResult.OK)
             {
                 string id = listBox1.ValueMember;
                 string nev = listBox1.DisplayMember;
+                //string kombinacio = id+ nev(sfd.FileName, Encoding.UTF8);
             }
 
         }
