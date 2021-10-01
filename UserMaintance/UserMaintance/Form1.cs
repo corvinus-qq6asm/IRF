@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 
 namespace UserMaintance
@@ -42,11 +43,17 @@ namespace UserMaintance
         private void button2_Click(object sender, EventArgs e)
         {
             SaveFileDialog sfd = new SaveFileDialog();
-            sfd.OverwritePrompt = true;
-            if (sfd.ShowDialog()==DialogResult.OK)
+
+            if (sfd.ShowDialog() == DialogResult.OK) return;
+            using (StreamWriter sw=new StreamWriter(sfd.FileName, false, Encoding.UTF8))
             {
-                string id = listBox1.ValueMember;
-                string nev = listBox1.DisplayMember;
+                foreach (var item in users)
+                {
+                    sw.Write(item.ID);
+                    sw.Write(";");
+                    sw.Write(item.FullName);
+                    sw.WriteLine();
+                }
             }
 
         }
