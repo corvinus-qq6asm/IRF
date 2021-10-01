@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace UserMaintance
 {
     public partial class Form1 : Form
@@ -20,6 +21,9 @@ namespace UserMaintance
             label1.Text = Resource1.LastName;
             label2.Text = Resource1.FirstName;
             button1.Text = Resource1.Add;
+            button2.Text = Resource1.WrtiteIntoFile;
+
+
 
             listBox1.DataSource = users;
             listBox1.ValueMember = "ID";
@@ -33,6 +37,32 @@ namespace UserMaintance
                 LastName = textBox1.Text,
                 FirstName = textBox2.Text
             };
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.OverwritePrompt = true;
+            if (sfd.ShowDialog()==DialogResult.OK)
+            {
+                string id = listBox1.ValueMember;
+                string nev = listBox1.DisplayMember;
+            }
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            var torlendo = listBox1.SelectedItem;
+            if (torlendo!=null)
+            {
+                users.Remove((Entities.User)torlendo);
+            }
         }
     }
 }
