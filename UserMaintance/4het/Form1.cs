@@ -14,7 +14,7 @@ namespace _4het
 {
     public partial class Form1 : Form
     {
-        RealEstateEntities context = new RealEstateEntities();
+        RealEstateEntities2 context = new RealEstateEntities2();
         List<Flat> Flats;
 
         Excel.Application xlApp;
