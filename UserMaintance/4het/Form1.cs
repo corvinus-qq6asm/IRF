@@ -20,7 +20,6 @@ namespace _4het
         Excel.Application xlApp;
         Excel.Workbook xlWB;
         Excel.Worksheet xlSheet;
-        private string getcell;
 
         public Form1()
         {
@@ -71,8 +70,50 @@ namespace _4het
                 values[counter, 5] = f.NumberOfRooms;
                 values[counter, 6] = f.FloorArea;
                 values[counter, 7] = f.Price;
-                values[counter, 8] = "=";
+                values[counter, 8] = "=" + GetCell(counter + 2, 8) + "*100000/" + GetCell(counter + 2, 7);
+                counter++;
             }
+
+            xlSheet.get_Range(
+                GetCell(2, 1),
+                GetCell(1 + values.GetLength(0), values.GetLength(1))).Value2 = values;
+
+            Excel.Range headerRange = xlSheet.get_Range(GetCell(1, 1), GetCell(1, headers.Length));
+            headerRange.Font.Bold = true;
+            headerRange.VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+            headerRange.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            headerRange.EntireColumn.AutoFit();
+            headerRange.RowHeight = 40;
+            headerRange.Interior.Color = Color.LightBlue;
+            headerRange.BorderAround2(Excel.XlLineStyle.xlContinuous, Excel.XlBorderWeight.xlThick);
+
+            Excel.Range tableRange= xlSheet.get_Range(GetCell(2, 1), GetCell(1+values.GetLength(0),values.GetLength(1)));
+            tableRange.BorderAround2(Excel.XlLineStyle.xlContinuous, Excel.XlBorderWeight.xlThick);
+
+            Excel.Range firstClomun = xlSheet.get_Range(GetCell(2, 1), GetCell(1 + values.GetLength(0), 1));
+            firstClomun.Font.Bold = true;
+            firstClomun.Interior.Color = Color.Fuchsia;
+
+            Excel.Range lastcolumn = xlSheet.get_Range(GetCell(2, values.GetLength(1)), GetCell(1 + values.GetLength(0), values.GetLength(1)));
+            lastcolumn.Interior.Color = Color.Red;
+            lastcolumn.NumberFormat = "###,###.00";
+
+        }
+        private string GetCell(int x, int y)
+        {
+            string ExcelCoordinate = "";
+            int dividend = y;
+            int modulo;
+
+            while (dividend > 0)
+            {
+                modulo = (dividend - 1) % 26;
+                ExcelCoordinate = Convert.ToChar(65 + modulo).ToString() + ExcelCoordinate;
+                dividend = (int)((dividend - modulo) / 26);
+            }
+            ExcelCoordinate += x.ToString();
+
+            return ExcelCoordinate;
         }
         private void CreateExcel()
         {
