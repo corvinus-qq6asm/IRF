@@ -25,6 +25,7 @@ namespace _4het
         {
             InitializeComponent();
             LoadData();
+            CreateExcel();
         }
 
         private void LoadData()
