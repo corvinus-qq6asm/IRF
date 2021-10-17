@@ -15,7 +15,7 @@ namespace week05
         PortfolioEntities context = new PortfolioEntities();
         List<Tick> Ticks;
 
-        List<portfolo>
+        List<port>
         public Form1()
         {
             InitializeComponent();
