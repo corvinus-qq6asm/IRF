@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace week05
 {
@@ -16,6 +17,8 @@ namespace week05
         List<Tick> Ticks;
 
         List<PortfolioItem> Portfolio = new List<PortfolioItem>();
+
+        List<decimal> Nyereségek = new List<decimal>();
         public Form1()
         {
             InitializeComponent();
@@ -24,7 +27,6 @@ namespace week05
             CreatePortfolio();
 
 
-            List<decimal> Nyereségek = new List<decimal>();
             int intervalum = 30;
             DateTime kezdőDátum = (from x in Ticks select x.TradingDay).Min();
             DateTime záróDátum = new DateTime(2016, 12, 30);
@@ -40,9 +42,12 @@ namespace week05
             var nyereségekRendezve = (from x in Nyereségek
                                       orderby x
                                       select x)
-                                        .ToList();
+                                   .ToList();
             MessageBox.Show(nyereségekRendezve[nyereségekRendezve.Count() / 5].ToString());
+
         }
+
+        
 
        
         public void CreatePortfolio()
@@ -66,6 +71,25 @@ namespace week05
             }
             return value;
         }
+        
+        public void Save()
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Text files (*txt)|*.txt|All files(*.*)|*.*";
+            if (sfd.ShowDialog()==DialogResult.OK)
+            {
+                StreamWriter sw = new StreamWriter(sfd.FileName);
+                sw.WriteLine("Időszak\tNyereség");
+                for (int i = 0; i < Nyereségek.Count; i++)
+                {
+                    sw.WriteLine((i + 1).ToString() + "\t" + Nyereségek[i]);
+                }
+            }
+        }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Save();
+        }
     }
 }
