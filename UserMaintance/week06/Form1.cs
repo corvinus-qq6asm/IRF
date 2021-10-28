@@ -23,7 +23,25 @@ namespace week06
             InitializeComponent();
             RefreshData();
             comboBox1.DataSource = Currencies;
+            GetCurrencies();
         }
+
+        private void GetCurrencies()
+        {
+            MnbServiceReference.MNBArfolyamServiceSoapClient mnbService = new MnbServiceReference.MNBArfolyamServiceSoapClient();
+            MnbServiceReference.GetCurrenciesRequestBody request = new MnbServiceReference.GetCurrenciesRequestBody();
+            var response = mnbService.GetCurrencies(request);
+            var result = response.GetCurrenciesResult;
+            XmlDocument xml = new XmlDocument();
+            xml.LoadXml(result);
+            foreach (XmlElement item in xml.DocumentElement.ChildNodes[0])
+            {
+                string newitem = item.InnerText;
+                Currencies.Add(newitem);
+            }
+            comboBox1.DataSource = Currencies;
+        }
+
 
         private void RefreshData()
         {
