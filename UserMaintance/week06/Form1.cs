@@ -21,9 +21,10 @@ namespace week06
         public Form1()
         {
             InitializeComponent();
-            RefreshData();
+            
             comboBox1.DataSource = Currencies;
             GetCurrencies();
+            RefreshData();
         }
 
         private void GetCurrencies()
@@ -45,7 +46,7 @@ namespace week06
 
         private void RefreshData()
         {
-            Rates.Clear();
+            //Rates.Clear();
 
             dataGridView1.DataSource = Rates;
 
