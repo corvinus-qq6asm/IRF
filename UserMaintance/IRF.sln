@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserMaintance", "UserMaintance\UserMaintance.csproj", "{D82D0D07-1763-4D6C-A4EB-48DD91401D3B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "week0", "UserMaintance\week0.csproj", "{D82D0D07-1763-4D6C-A4EB-48DD91401D3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "4het", "4het\4het.csproj", "{348861F3-D91F-4D7F-A58D-56B8224EFC8C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "week04", "4het\week04.csproj", "{348861F3-D91F-4D7F-A58D-56B8224EFC8C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "week05", "week05\week05.csproj", "{B370F06F-C31D-4BF5-A789-E2E21AC68C53}"
 EndProject
