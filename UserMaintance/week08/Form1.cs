@@ -12,11 +12,11 @@ namespace week08
 {
     public partial class Form1 : Form
     {
-        List<Entities.Ball> _balls = new List<Entities.Ball>();
+        List<Abstractions.Toy> _toys = new List<Abstractions.Toy>();
 
         Entities.BallFactory _factory;
 
-        Entities.BallFactory Factory
+        Abstractions.IToyFactory Factory
         {
             get { return _factory; }
             set { _factory = value; }
@@ -30,19 +30,29 @@ namespace week08
 
         private void createTimer_Tick(object sender, EventArgs e)
         {
-            var ball = Factory.CreateNew();
-            _balls.Add(ball);
-            mainPanel.Controls.Add(ball);
-            ball.Left = -ball.Width;
+            var toy = Factory.CreateNew();
+            _toys.Add(toy);
+            mainPanel.Controls.Add(toy);
+            toy.Left = -toy.Width;
         }
 
         private void conveyorTimer_Tick(object sender, EventArgs e)
         {
             var maxPosition = 0;
-            foreach (Entities.Ball item in _balls)
-            { 
-                
+            foreach (var toy in _toys)
+            {
+                toy.MoveToy();
+                if (toy.Left > maxPosition)
+                    maxPosition = toy.Left;
             }
+
+            if (maxPosition > 1000)
+            {
+                var oldestToy = _toys[0];
+                mainPanel.Controls.Add(oldestToy);
+                _toys.Remove(oldestToy);
+            }
+            
         }
     }
 }

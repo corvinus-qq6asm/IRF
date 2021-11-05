@@ -7,9 +7,8 @@ using week08.Abstractions;
 
 namespace week08.Entities
 {
-    class BallFactory:Abstractions.IToyFactory
+    class CarFactory : Abstractions.IToyFactory
     {
-
         public Toy CreateNew()
         {
             return new Ball();
