@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstractions\IToyFactory.cs" />
+    <Compile Include="Abstractions\PresentFactory.cs" />
     <Compile Include="Abstractions\Toy.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -64,7 +65,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Present.cs">
+    <Compile Include="Entities\Present.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Program.cs" />
