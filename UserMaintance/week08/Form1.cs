@@ -96,5 +96,14 @@ namespace week08
                 return;
             button3.BackColor = colourPicker.Color;
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Factory = new Abstractions.PresentFactory
+            {
+                Colour1 = button3.BackColor,
+                Colour2 = button3.BackColor
+            };
+        }
     }
 }

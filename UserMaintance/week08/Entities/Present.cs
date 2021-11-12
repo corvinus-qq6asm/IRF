@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace week08
 {
-    class Present:Abstractions.Toy
+         public  class Present:Abstractions.Toy
     {
         public SolidBrush PresentColour1 { get; set; }
         public SolidBrush PresentColour2 { get; set; }

@@ -13,7 +13,7 @@ namespace week08.Abstractions
         public Color Colour2 { get; set; }
         public Toy CreateNew()
         {
-            return new Entities.Present(Colour1, Colour2);
+            return new Present(Colour1, Colour2);
         }
     }
 }
