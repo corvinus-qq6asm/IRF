@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 using UnitTestExample.Controllers;
 using System.Text.RegularExpressions;
 using System.Activities;
+using Moq;
+using NUnit.Compatibility;
+using UnitTestExample.Abstractions;
+using UnitTestExample.Entities;
 
 namespace UnitTestExample.Test
 {
@@ -32,7 +36,7 @@ namespace UnitTestExample.Test
             TestCase("Passworddd",false ),
             TestCase("PASSWORDDDD", false),
             TestCase("password123",false ),
-            TestCase("JElszo12345", true),
+            TestCase("psw12", false),
             TestCase("Password123", true)
             ]
 
@@ -46,15 +50,6 @@ namespace UnitTestExample.Test
 
         }
 
-        public bool ValidPassW(string password)
-        {
-            var kisb = new Regex(@"[a-z]+");
-            var nagyb = new Regex(@"[A-Z]+");
-            var szam = new Regex(@"[0-9]+");
-            var hosszusag = new Regex(@".{8,}");
-            return kisb.IsMatch(password) && nagyb.IsMatch(password) && szam.IsMatch(password) && hosszusag.IsMatch(password);
-        }
-
         [
             Test,
             TestCase("irf@uni-corvinus.hu", "Abcd1234"),
@@ -62,16 +57,23 @@ namespace UnitTestExample.Test
         ]
         public void TestRegisterHappyPath(string email, string password)
         {
-            
-            var accountController = new AccountController();
+            var accountServiceMock = new Mock<IAccountManager>(MockBehavior.Strict);
+            accountServiceMock
+                .Setup(m => m.CreateAccount(It.IsAny<Account>()))
+                .Returns<Account>(a => a);
 
-            
+            var accountController = new AccountController();
+            accountController.AccountManager = accountServiceMock.Object;
+
+
+
             var actualResult = accountController.Register(email, password);
 
             
             Assert.AreEqual(email, actualResult.Email);
             Assert.AreEqual(password, actualResult.Password);
             Assert.AreNotEqual(Guid.Empty, actualResult.ID);
+            accountServiceMock.Verify(m => m.CreateAccount(actualResult), Times.Once);
         }
 
         [
@@ -97,19 +99,17 @@ namespace UnitTestExample.Test
                 Assert.IsInstanceOf<ValidationException>(ex);
             }
 
-            
-        }
+          
 
-        /*
+        }
+        
         [
             Test,
             TestCase("irf@uni-corvinus.hu", "Abcd1234")
         ]
-
-        
+      
         public void TestRegisterApplicationException(string newEmail, string newPassword)
         {
-            // Arrange
             var accountServiceMock = new Mock<IAccountManager>(MockBehavior.Strict);
             accountServiceMock
                 .Setup(m => m.CreateAccount(It.IsAny<Account>()))
@@ -117,7 +117,6 @@ namespace UnitTestExample.Test
             var accountController = new AccountController();
             accountController.AccountManager = accountServiceMock.Object;
 
-            // Act
             try
             {
                 var actualResult = accountController.Register(newEmail, newPassword);
@@ -128,9 +127,8 @@ namespace UnitTestExample.Test
                 Assert.IsInstanceOf<ApplicationException>(ex);
             }
 
-            // Assert
         }
-        */
+        
         
     }
 }
