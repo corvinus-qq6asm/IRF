@@ -13,6 +13,17 @@ namespace week10
 {
     public partial class Form1 : Form
     {
+
+        Brain winnerBrain = null;
+
+        GameController gc = new GameController();
+        GameArea ga = new GameArea();
+
+        int populationSize = 100;
+        int nbOfSteps = 10;
+        int nbOfStepsIncrement = 10;
+        int generation = 1;
+
         public Form1()
         {
             InitializeComponent();
@@ -68,22 +79,17 @@ namespace week10
                     gc.AddPlayer(b.Mutate());
             }
 
+            button1.Visible = true;
+
             gc.Start();
         }
-
-        private void Gc_GameOver1(object sender)
+        private void button1_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            gc.ResetCurrentLevel();
+            gc.AddPlayer(winnerBrain.Clone());
+            gc.AddPlayer();
+            ga.Focus();
+            gc.Start(true);
         }
-
-        Brain winnerBrain = null;
-
-        GameController gc = new GameController();
-        GameArea ga = new GameArea();
-
-        int populationSize = 100;
-        int nbOfSteps = 10;
-        int nbOfStepsIncrement = 10;
-        int generation = 1;
     }
 }
